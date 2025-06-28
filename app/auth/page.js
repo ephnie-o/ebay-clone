@@ -4,9 +4,15 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import Link from 'next/link';
+import { useState, useEffect } from 'react'
 
 export default function AuthPage() {
     const supabase = createClientComponentClient();
+    const [redirectTo, setRedirectTo] = useState('')
+
+    useEffect(() => {
+        setRedirectTo(`${window.location.origin}/auth/callback`)
+    }, [])
 
     return (
         <>
@@ -24,7 +30,7 @@ export default function AuthPage() {
                 <div className="max-w-[400px] mx-auto px-2">
                     <Auth
                         onlyThirdPartyProviders
-                        redirectTo={`${window.location.origin}/auth/callback`}
+                        redirectTo={redirectTo}
                         supabaseClient={supabase}
                         providers={['google']}
                         appearance={{theme: ThemeSupa}}
