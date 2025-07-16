@@ -35,63 +35,65 @@ export default function Orders() {
     return (
         <>
             <MainLayout>
-                <div id="OrdersPage" className="mt-4 max-w-[1200px] mx-auto px-2 min-h-[50vh]">
-                    <div className="bg-white w-full p-6 min-h-[150px]">
+                <div id="OrdersPage" className="mt-4 max-w-[1200px] mx-auto px-4 min-h-[50vh]">
+                    <div className="bg-white w-full p-4 sm:p-6 min-h-[150px] rounded-lg shadow-sm">
                         <div className="flex items-center text-xl">
-                            <CiDeliveryTruck className="text-green-500" size={35}/>
-                            <span className="pl-4">Orders</span>
+                            <CiDeliveryTruck className="text-green-500" size={30}/>
+                            <span className="pl-3 sm:pl-4">Orders</span>
                         </div>
                         {orders.length < 1 ?
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-center py-8 text-gray-500">
                                 You have no order history
                             </div>
                         : null}
 
-                        {orders.map(order => (
-                            <div key={order?.id} className="text-sm pl-[50px]">
-                                <div className="border-b border-gray-200 py-1">
+                        <div className="mt-4 space-y-6">
+                            {orders.map(order => (
+                                <div key={order?.id} className="border-b border-gray-200 pb-6 last:border-0">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
 
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Stripe ID:</span>
-                                        {order?.stripe_id}
+                                        <div>
+                                            <span className="font-bold">Order ID: </span>
+                                            {order?.stripe_id}
+                                        </div>
+
+                                        <div>
+                                            <span className="font-bold">Delivery Address: </span>
+                                            {order?.name}, {order?.address}, {order?.zipcode}, {order?.city}, {order?.country}
+                                        </div>
+
+                                        <div>
+                                            <span className="font-bold">Total: </span>
+                                            £{order?.total / 100}
+                                        </div>
+
+                                        <div>
+                                            <span className="font-bold">Order Created: </span>
+                                            {moment(order?.created_at).calendar()}
+                                        </div>
+
+                                        <div>
+                                            <span className="font-bold">Delivery Time: </span>
+                                            {moment(order?.created_at).add(3, 'days').calendar()}
+                                        </div>
                                     </div>
+                                    <div className="mt-3">
+                                        <h4 className="font-semibold mb-2">Items:</h4>
 
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Delivery Address:</span>
-                                        {order?.name}, {order?.address}, {order?.zipcode}, {order?.city}, {order?.country}
-                                    </div>
-
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Total:</span>
-                                        £{order?.total / 100}
-                                    </div>
-
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Order Created:</span>
-                                        {moment(order?.created_at).calendar()}
-                                    </div>
-
-                                    <div className="py-2">
-                                        <span className="font-bold mr-2">Delivery Time:</span>
-                                        {moment(order?.created_at).add(3, 'days').calendar()}
-                                    </div>
-
-                                    <div className="flex items-center gap-4">
-                                        {order?.orderItem.map(item => (
-                                            <div key={item.id} className="flex items-center">
-                                                <Link
-                                                    className="py-1 hover:underline text-blue-500 font-bold"
-                                                    href={`/product/${item.product_id}`}
-                                                >
-                                                    <img className="rounded" width="120" src={item.product.url+'/120'} />
-                                                    {item.product.title}
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                                            {order?.orderItem.map(item => (
+                                                <Link key={item.id} href={`/product/${item.product_id}`} className="group border border-gray-200 rounded-lg p-2 hover:shadow transition-all">
+                                                    <img className="rounded w-full aspect-square object-cover mb-2" width="120" src={item.product.url+'/120'} alt={item.product.title} />
+                                                    <div className="text-sm font-medium group-hover:text-blue-600 line-clamp-2">
+                                                        {item.product.title}
+                                                    </div>
                                                 </Link>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </MainLayout>

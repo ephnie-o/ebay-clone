@@ -34,30 +34,32 @@ export default function Product() {
     return(
         <>
             <MainLayout>
-                <div className="max-w-[1200px] mx-auto">
-                    <div className="flex px-4 py-10">
+                <div className="max-w-[1200px] mx-auto px-4">
+                    <div className="flex flex-col lg:flex-row md:flex-row py-6 md:py-10 gap-6">
 
-                        {product?.url
-                        ? <img className="w-[40%] rounded-lg" src={product?.url+'/280'} />
-                        : <div className="w-[40%]"></div>
-                        }
+                        <div className="lg:w-[40%] md:w-[40%] w-full">
+                            {product?.url
+                            ? <img className="w-full rounded-lg max-h-[500px] object-contain" src={product?.url+'/280'} alt={product?.title} />
+                            : <div className="w-full aspect-square bg-gray-100 rounded-lg"></div>
+                            }
+                        </div>
 
-                        <div className="px-4 w-full">
+                        <div className="lg:w-[60%] md:w-[60%] w-full">
                             <div className="font-bold text-xl">{product?.title}</div>
                             <div className="text-sm text-gray-700 pt-2">Brand New - Full Warranty</div>
 
-                            <div className="border-b border-gray-200 py-1" />
+                            <div className="border-b border-gray-200 my-3" />
 
-                            <div className="pt-3 pb-2">
+                            <div className="py-2">
                                 <div className="flex items-center">
                                 Condition: <span className="font-bold text-[17px] ml-2">New</span>
                                 </div>
                             </div>
 
-                            <div className="border-b border-gray-200 py-1" />
+                            <div className="border-b border-gray-200 my-3" />
 
-                            <div className="pt-3">
-                                <div className="w-full flex items-center justify-between">
+                            <div className="py-3">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                     <div className="flex items-center">
                                         Price:
                                         {product?.price
@@ -78,8 +80,9 @@ export default function Product() {
                                             }
                                         }}
                                         className={`
-                                            text-white py-2 px-20 rounded-full cursor-pointer bg-[#3498C9]
+                                            text-white py-2 px-4 rounded-full cursor-pointer bg-[#3498C9]
                                             ${cart.isItemAdded ? 'bg-[#e9a321] hover:bg-[#bf851a]' : 'bg-[#3498C9] hover:bg-[#0054A0]'}
+                                            w-full sm:w-auto text-center
                                         `}
                                     >
                                         {cart.isItemAdded ? 'Remove From Cart' : 'Add To Cart'}
@@ -87,11 +90,11 @@ export default function Product() {
                                 </div>
                             </div>
 
-                            <div className="border-b border-gray-200 py-1" />
+                            <div className="border-b border-gray-200 my-3" />
 
-                            <div className="pt-3">
-                                <div className="font-semibold pb-1">Description:</div>
-                                <div className="text-sm">{product?.description}</div>
+                            <div className="py-3">
+                                <div className="font-semibold pb-2">Description:</div>
+                                <div className="text-sm whitespace-pre-line">{product?.description}</div>
                             </div>
                         </div>
 

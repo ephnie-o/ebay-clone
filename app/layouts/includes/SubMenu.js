@@ -19,24 +19,24 @@ export default function SubMenu() {
     return (
         <>
             <div id="SubMenu" className="border-b border-gray-200">
-                <div className="flex items-center justify-between w-full mx-auto max-w-[1200px]">
-                    <ul
-                        id="TopMenuLeft"
-                        className="
-                            flex
-                            items-center
-                            text-[13px]
-                            text-[#333333]
-                            px-2
-                            h-8
-                        "
-                    >
+                <div className="w-full mx-auto max-w-[1200px] px-4 py-4">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2">
                         {menuItems.map(item => (
-                            <li key={item.id} className="px-3 hover:underline cursor-pointer">
+                            <div 
+                                key={item.id} 
+                                className="
+                                    text-center
+                                    p-1
+                                    hover:underline
+                                    cursor-pointer
+                                    text-[13px]
+                                    text-[#333333]
+                                "
+                            >
                                 {item.name}
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </>

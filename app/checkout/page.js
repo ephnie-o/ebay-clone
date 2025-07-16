@@ -64,7 +64,7 @@ export default function Checkout() {
         clientSecret.current = result.client_secret
         elements.current = stripe.current.elements();
         var style = {
-            base: { fontSize: "18px" },
+            base: { fontSize: "16px" },
             invalid: {
                 fontFamily: 'Arial, sans-serif',
                 color: "#EE4B2B",
@@ -138,12 +138,12 @@ export default function Checkout() {
     return (
         <>
             <MainLayout>
-                <div id="CheckoutPage" className="mt-4 max-w-[1100px] mx-auto">
+                <div id="CheckoutPage" className="mt-4 max-w-[1100px] mx-auto px-4">
 
                     <div className="text-2xl font-bold mt-4 mb-4">Checkout</div>
 
-                    <div className="relative flex items-baseline gap-4 justify-between mx-auto w-full">
-                        <div className="w-[65%]">
+                    <div className="relative flex flex-col lg:flex-row gap-4 justify-between mx-auto w-full">
+                        <div className="w-full lg:w-[65%]">
                             <div className="bg-white rounded-lg p-4 border border-gray-200">
 
                                 <div className="text-xl font-semibold mb-2">Shipping Address</div>
@@ -156,7 +156,7 @@ export default function Checkout() {
                                     : null}
 
                                     {!isLoadingAddress && addressDetails.name ?
-                                        <ul className="text-sm mt-2">
+                                        <ul className="text-sm mt-2 space-y-1">
                                             <li>Name: {addressDetails.name}</li>
                                             <li>Address: {addressDetails.address}</li>
                                             <li>Zip: {addressDetails.zipcode}</li>
@@ -183,7 +183,7 @@ export default function Checkout() {
                             </ClientOnly>
                         </div>
 
-                        <div id="PlaceOrder" className="relative -top-[6px] w-[35%] border border-gray-200 rounded-lg">
+                        <div id="PlaceOrder" className="w-full lg:w-[35%] border border-gray-200 rounded-lg sticky top-4">
                             <ClientOnly>
                                 <div className="p-4">
                                     <div className="flex items-baseline justify-between text-sm mb-1">
@@ -199,15 +199,19 @@ export default function Checkout() {
 
                                     <div className="flex items-center justify-between my-4">
                                         <div className="font-semibold">Order total</div>
-                                        <div className="text-2xl font-semibold">
-                                            £{(cart.cartTotal() / 100).toFixed(2)}                                        </div>
+                                        <div className="text-xl lg:text-2xl font-semibold">
+                                            £{(cart.cartTotal() / 100).toFixed(2)}
+                                        </div>
                                     </div>
 
                                     <form onSubmit={pay}>
-                                        <div
-                                            className="border border-gray-500 p-2 rounded-sm"
-                                            id="card-element"
-                                        />
+                                        <div className="mb-4">
+                                            <div className="text-sm font-medium mb-2">Payment Details</div>
+                                            <div
+                                                className="border border-gray-500 p-2 rounded-sm"
+                                                id="card-element"
+                                            />
+                                        </div>
 
                                         <p
                                             id="card-error"
@@ -217,7 +221,7 @@ export default function Checkout() {
 
                                         <button
                                             type="submit"
-                                            className="mt-4 bg-blue-600 text-lg w-full text-white font-semibold p-3 rounded-full"
+                                            className="mt-4 bg-blue-600 text-base lg:text-lg w-full text-white font-semibold p-3 rounded-full hover:bg-blue-700 transition-colors"
                                         >
                                             <div>Confirm and pay</div>
                                         </button>
@@ -226,8 +230,8 @@ export default function Checkout() {
                             </ClientOnly>
 
                             <div className="flex items-center p-4 justify-center gap-2 border-t border-gray-200">
-                                <img width={50} src="/images/logo.svg" />
-                                <div className=" font-light mb-2 mt-2">MONEY BACK GUARANTEE</div>
+                                <img width={50} src="/images/logo.svg" alt="Company Logo" />
+                                <div className="font-light text-sm lg:text-base">MONEY BACK GUARANTEE</div>
                             </div>
                         </div>
                     </div>
